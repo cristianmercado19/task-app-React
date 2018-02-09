@@ -120,6 +120,5 @@ export class AddNewTask extends React.Component<Props, State> implements AddNewT
         this.setState((prevState, props) => ({
             viewModel: this.viewModel
         }));
-
     }
 }
