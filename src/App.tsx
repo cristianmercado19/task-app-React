@@ -9,18 +9,19 @@ import { TaskApiMock }
 from 'task-app-pkg/dist/tasks-module/api/task-mock.api';
 import { InMemoryTaskService }
 from 'task-app-pkg/dist/tasks-module/services/in-memory-task.service';
-// import { SummaryController }
-// from 'task-app-pkg/dist/tasks-module/mvc/summary/summary.controller';
 import { ListController }
 from 'task-app-pkg/dist/tasks-module/mvc/list/list.controller';
 import { ListTask } from './list-task';
+import { SummaryTask } from './summary-task';
+import { SummaryController } from 'task-app-pkg/dist/tasks-module/mvc/summary/summary.controller';
 
-// const logo = require('./logo.svg');
+const logo = require('./logo.svg');
 
 class App extends React.Component<Object, Object> {
 
   private addNewTaskController: AddNewTaskPassiveCotroller;
   private listController: ListController;
+  private summaryController: SummaryController;
 
 // tslint:disable-next-line:no-any
 constructor(props: any) {
@@ -31,8 +32,8 @@ constructor(props: any) {
   const service = new InMemoryTaskService(api, storeService);
 
   this.addNewTaskController = new AddNewTaskPassiveCotroller(service);
-  // this.summaryController = new SummaryController(storeService);
   this.listController = new ListController(storeService);
+  this.summaryController = new SummaryController(storeService);
 }
 
   renderAddNewTask () {
@@ -51,16 +52,25 @@ constructor(props: any) {
     );
   }
 
+  renderSummary () {
+    return (
+      <SummaryTask
+        controller={this.summaryController}
+      />
+    );
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h1 className="App-title">Welcome to task-app</h1>
+          {<img src={logo} className="App-logo" alt="logo" />}
+          <h1 className="App-title">Welcome to task-app-React</h1>
         </header>
         <div className="App-intro">
           {this.renderAddNewTask()}
           {this.renderList()}
+          {this.renderSummary()}
         </div>
       </div>
     );
